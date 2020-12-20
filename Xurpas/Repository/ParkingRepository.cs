@@ -24,16 +24,14 @@ namespace Xurpas.Repository
         public List<SelectListItem> ListEntryPoint()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            List<EntryPoint> ep = _context.EntryPoint.Where(x => x.IsActive == true).ToList();
-            ep.ForEach(x => list.Add(new SelectListItem(x.EntryPointName, x.EntryPointName)));
+            _context.EntryPoint.Where(x => x.IsActive == true).ToList().ForEach(x => list.Add(new SelectListItem(x.EntryPointName, x.EntryPointName)));
             return list;
         }
 
         public List<SelectListItem> ListVehicleType()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            List<ParkingType> pt = _context.ParkingType.Where(x => x.IsActive == true).ToList();
-            pt.ForEach(x => list.Add(new SelectListItem(x.Description, x.ParkingCode)));
+             _context.ParkingType.Where(x => x.IsActive == true).ToList().ForEach(x => list.Add(new SelectListItem(x.Description, x.ParkingCode)));
             return list;
         }
 
@@ -47,13 +45,13 @@ namespace Xurpas.Repository
             {
                 var result = (from psep in _context.ParkingSpacePerEntryPoint.Where(x => x.EntryPointName == entrypoint)
                               join ps in _context.ParkingSpace.Where(x => x.IsActive == true && x.IsAvailable == true) on psep.ParkingSpaceID equals ps.ParkingSpaceID
-                              where (ptype.Contains(ps.ParkingTypeCode))
+                              where (ptype.Contains(ps.ParkingTypeCode)) //where(ps.ParkingTypeCode == parkingtype)
                               select new ParkingSpace
                               {
                                   ParkingSpaceID = ps.ParkingSpaceID,
                                   ParkingTypeCode = ps.ParkingTypeCode
                               }).ToList();
-                //where(ps.ParkingTypeCode == parkingtype)
+
                 result.ForEach(x => list.Add(new SelectListItem(x.ParkingSpaceID.ToString(), x.ParkingSpaceID.ToString())));
             }
             else

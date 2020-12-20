@@ -16,6 +16,7 @@ namespace Xurpas.Services
     public class ParkingServices : IParkingServices
     {
         private readonly IParkingRepository _parkingrepository;
+        IParkingFees parkingfee;
         public ParkingServices(IParkingRepository parkingrepository)
         {
             this._parkingrepository = parkingrepository;
@@ -121,56 +122,35 @@ namespace Xurpas.Services
 
         public ParkingViewModel UnParkVehicleDetails(int id)
         {
-            IParkingFees parkingfee;
+            //IParkingFees parkingfee;
             ParkingViewModel parkingviewmodel = GetParkingById(id);
             ParkingType pt = GetParkingTypeByCode(parkingviewmodel.ParkingTypeCode);
-
             parkingviewmodel.TimeOut = DateTime.Now;
             switch (parkingviewmodel.ParkingTypeCode)
             {
                 case "SP":
                     parkingfee = new ParkingFeesConcreteCreator.SmallVehiclesFactory().ParkingFee();
-                    parkingfee.ParkingCode = parkingviewmodel.ParkingTypeCode;
-                    parkingfee.TimeIn = parkingviewmodel.TimeIn;
-                    parkingfee.TimeOut = parkingviewmodel.TimeOut.GetValueOrDefault();
-                    parkingfee.RateFor3Hours = ConstantRates.FlatRate;
-                    parkingfee.RateFor24Hours = ConstantRates.Per24hourRate;
-                    parkingfee.HourlyRate = pt.HourLyRate;
-                    parkingviewmodel.HourlyRate = pt.HourLyRate;
-                    parkingviewmodel.NumberOfHours = parkingfee.NumberOfHours();
-                    parkingviewmodel.ParkingFeesDetails = parkingfee.SParking();
-                    parkingviewmodel.TotalParkingFees = parkingfee.TotalParkingFees();
                     break;
                 case "MP":
                     parkingfee = new ParkingFeesConcreteCreator.MediumVehiclesFactory().ParkingFee();
-                    parkingfee.ParkingCode = parkingviewmodel.ParkingTypeCode;
-                    parkingfee.TimeIn = parkingviewmodel.TimeIn;
-                    parkingfee.TimeOut = parkingviewmodel.TimeOut.GetValueOrDefault();
-                    parkingfee.RateFor3Hours = ConstantRates.FlatRate;
-                    parkingfee.RateFor24Hours = ConstantRates.Per24hourRate;
-                    parkingfee.HourlyRate = pt.HourLyRate;
-                    parkingviewmodel.HourlyRate = pt.HourLyRate;
-                    parkingviewmodel.NumberOfHours = parkingfee.NumberOfHours();
-                    parkingviewmodel.ParkingFeesDetails = parkingfee.SParking();
-                    parkingviewmodel.TotalParkingFees = parkingfee.TotalParkingFees();
-
                     break;
                 case "LP":
                     parkingfee = new ParkingFeesConcreteCreator.LargeVehiclesFactory().ParkingFee();
-                    parkingfee.ParkingCode = parkingviewmodel.ParkingTypeCode;
-                    parkingfee.TimeIn = parkingviewmodel.TimeIn;
-                    parkingfee.TimeOut = parkingviewmodel.TimeOut.GetValueOrDefault();
-                    parkingfee.RateFor3Hours = ConstantRates.FlatRate;
-                    parkingfee.RateFor24Hours = ConstantRates.Per24hourRate;
-                    parkingfee.HourlyRate = pt.HourLyRate;
-                    parkingviewmodel.HourlyRate = pt.HourLyRate;
-                    parkingviewmodel.NumberOfHours = parkingfee.NumberOfHours();
-                    parkingviewmodel.ParkingFeesDetails = parkingfee.SParking();
-                    parkingviewmodel.TotalParkingFees = parkingfee.TotalParkingFees();
                     break;
                 default:
                     break;
             }
+
+            parkingfee.ParkingCode = parkingviewmodel.ParkingTypeCode;
+            parkingfee.TimeIn = parkingviewmodel.TimeIn;
+            parkingfee.TimeOut = parkingviewmodel.TimeOut.GetValueOrDefault();
+            parkingfee.RateFor3Hours = ConstantRates.FlatRate;
+            parkingfee.RateFor24Hours = ConstantRates.Per24hourRate;
+            parkingfee.HourlyRate = pt.HourLyRate;
+            parkingviewmodel.HourlyRate = pt.HourLyRate;
+            parkingviewmodel.NumberOfHours = parkingfee.NumberOfHours();
+            parkingviewmodel.ParkingFeesDetails = parkingfee.SParking();
+            parkingviewmodel.TotalParkingFees = parkingfee.TotalParkingFees();
 
             return parkingviewmodel;
         }
