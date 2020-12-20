@@ -87,23 +87,17 @@ namespace Xurpas.Services
 
         public List<SelectListItem> GetEntryPoint()
         {
-            List<SelectListItem> list = new List<SelectListItem>();
-            list = _parkingrepository.ListEntryPoint();
-            return list;
+            return _parkingrepository.ListEntryPoint();
         }
 
         public List<SelectListItem> GetParkingByEntryPoint(string entrypoint, string parkingType)
         {
-            List<SelectListItem> list = new List<SelectListItem>();
-            list = _parkingrepository.ListParkingSpace(entrypoint, parkingType);
-            return list;
+            return _parkingrepository.ListParkingSpace(entrypoint, parkingType);
         }
 
         public List<SelectListItem> GetVehicleType()
         {
-            List<SelectListItem> list = new List<SelectListItem>();
-            list = _parkingrepository.ListVehicleType();
-            return list;
+            return _parkingrepository.ListVehicleType();
         }
 
         public void ParkVehicle(ParkingViewModel collection)
@@ -183,16 +177,12 @@ namespace Xurpas.Services
 
         public List<ParkingType> GetAllParkingType()
         {
-            List<ParkingType> lstParkingTypes = _parkingrepository.GetAllParkingType();
-            return lstParkingTypes;
+            return _parkingrepository.GetAllParkingType();
         }
 
         public ParkingType GetParkingTypeByCode(string code)
         {
-            ParkingType pt = new ParkingType();
-            pt = _parkingrepository.GetParkingTypeByCode(code);
-
-            return pt;
+            return _parkingrepository.GetParkingTypeByCode(code);
         }
 
         public void UnParkVehicle(ParkingViewModel collection)
@@ -238,10 +228,7 @@ namespace Xurpas.Services
 
         public ParkingSpace GetParkingSpaceById(int id)
         {
-            ParkingSpace ps = new ParkingSpace();
-            ps = _parkingrepository.GetParkingSpaceById(id);
-
-            return ps;
+            return _parkingrepository.GetParkingSpaceById(id);
         }
     }
 }

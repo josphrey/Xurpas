@@ -18,8 +18,7 @@ namespace Xurpas.Repository
 
         public List<Parking> GetAllParking()
         {
-            List<Parking> lst = _context.Parking.ToList();
-            return lst;
+            return _context.Parking.ToList();
         }
 
         public List<SelectListItem> ListEntryPoint()
@@ -75,22 +74,17 @@ namespace Xurpas.Repository
 
         public List<ParkingType> GetAllParkingType()
         {
-            List<ParkingType> lst = _context.ParkingType.ToList();
-            return lst;
+            return _context.ParkingType.ToList();
         }
 
         public ParkingType GetParkingTypeByCode(string code)
         {
-            ParkingType pt = new ParkingType();
-            pt = _context.ParkingType.Where(x => x.ParkingCode == code).FirstOrDefault();
-            return pt;
+            return _context.ParkingType.Where(x => x.ParkingCode == code).FirstOrDefault();
         }
 
         public ParkingSpace GetParkingSpaceById(int id)
         {
-            ParkingSpace ps = new ParkingSpace();
-            ps = _context.ParkingSpace.Find(id);
-            return ps;
+            return _context.ParkingSpace.Find(id);
         }
     }
 }
