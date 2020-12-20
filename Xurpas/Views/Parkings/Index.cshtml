@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Xurpas.Models.ViewModels.ParkingViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List Parked Vehicles</h1>
+
+<p>
+    <a asp-action="Park">Park</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ID)
+                </th>*@
+            <th>
+                Plate No.
+            </th>
+            <th>
+                Entry Point
+            </th>
+            <th>
+                ParkingType
+            </th>
+            <th>
+                Parking Space
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeOut)
+            </th>
+            @*<th>
+                Allow Return
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlateNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryPointName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParkingTypeCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParkingSpaceID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeOut)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.isDisable)
+                </td>*@
+                <td>
+                    @if (item.TimeOut.ToString() == "01/01/0001 12:00:00 am")
+                    {
+                        @Html.ActionLink("Unpark", "Unpark", new { id = item.ID }) <br />
+                    }
+
+                    @if (item.isDisable == "Yes")
+                    {
+                        @Html.ActionLink("Return", "Returning", new { id = item.ID }) <br />
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { id = item.ID })
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

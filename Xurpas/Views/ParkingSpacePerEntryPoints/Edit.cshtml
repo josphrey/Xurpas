@@ -1,0 +1,48 @@
+﻿@model Xurpas.Models.ParkingSpacePerEntryPoint
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>ParkingSpacePerEntryPoint</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="EntryPointName" class="control-label"></label>
+                @*<input asp-for="EntryPointName" class="form-control" />*@
+                <select id="EntryPointName" class="form-control selectpicker" data-show-subtext="true"
+                        data-live-search="true" asp-items="@ViewBag.ListEntryPoint"
+                        data_style="btn-inverse" asp-for="EntryPointName">
+                </select>
+                <span asp-validation-for="EntryPointName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingSpaceID" class="control-label"></label>
+                @*<input asp-for="ParkingSpaceID" class="form-control" />*@
+                <select id="ParkingSpaceID" class="form-control selectpicker" data-show-subtext="true"
+                        data-live-search="true" asp-items="@ViewBag.ListParkingSpace"
+                        data_style="btn-inverse" asp-for="ParkingSpaceID">
+                </select>
+                <span asp-validation-for="ParkingSpaceID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,90 @@
+﻿@model Xurpas.Models.ViewModels.ParkingViewModel
+
+@{
+    ViewData["Title"] = "Park";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h4>Park Vehicle</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Park">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                    <label asp-for="ID" class="control-label"></label>
+                    <input asp-for="ID" class="form-control" />
+                    <span asp-validation-for="ID" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="PlateNumber" class="control-label"></label>
+                <input asp-for="PlateNumber" class="form-control" />
+                <span asp-validation-for="PlateNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntryPointName" class="control-label"></label>
+                <select id="dllEntryPointName" class="form-control" asp-items="@(new SelectList(ViewBag.ParkingEntryPoint,"Value","Text"))" asp-for="EntryPointName"></select>
+                <span asp-validation-for="EntryPointName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingTypeCode" class="control-label"></label>
+                <select id="ddlParkingTypeCode" class="form-control" asp-items="@(new SelectList(ViewBag.ParkingVehicleType,"Value","Text"))" asp-for="ParkingTypeCode"></select>
+                <span asp-validation-for="ParkingTypeCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingSpaceID" class="control-label"></label>
+                <select id="ddlParkingSpaceID" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))" asp-for="ParkingSpaceID"></select>
+                <span asp-validation-for="ParkingSpaceID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeIn" class="control-label"></label> :
+                <b>
+                    @Html.DisplayFor(model => model.TimeIn)
+                </b>
+                <input asp-for="TimeIn" type="hidden" />
+                <span asp-validation-for="TimeIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(function () {
+            $("#ddlParkingTypeCode").change(function () {
+                $.getJSON("/Parkings/GetlistParking", { entrypoint: $("#dllEntryPointName").val(), parkingtype: $("#ddlParkingTypeCode").val() }, function (d) {
+                    var row = "";
+                    $("#ddlParkingSpaceID").empty();
+                    $.each(d, function (i, v) {
+                        row += "<option value=" + v.value + ">" + v.text + "</option>";
+                    });
+                    $("#ddlParkingSpaceID").html(row);
+                })
+            })
+        })
+
+        $(function () {
+            $("#dllEntryPointName").change(function () {
+                $.getJSON("/Parkings/GetlistParking", { entrypoint: $("#dllEntryPointName").val(), parkingtype: $("#ddlParkingTypeCode").val() }, function (d) {
+                    var row = "";
+                    $("#ddlParkingSpaceID").empty();
+                    $.each(d, function (i, v) {
+                        row += "<option value=" + v.value + ">" + v.text + "</option>";
+                    });
+                    $("#ddlParkingSpaceID").html(row);
+                })
+            })
+        })
+    </script>
+}

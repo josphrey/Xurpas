@@ -1,0 +1,84 @@
+﻿@model Xurpas.Models.ViewModels.ParkingViewModel
+
+@{
+    ViewData["Title"] = "Unpark";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Unpark</h1>
+
+<h4>Unpark</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Unpark">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlateNumber" class="control-label"></label>
+                <input asp-for="PlateNumber" class="form-control" />
+                <span asp-validation-for="PlateNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntryPointName" class="control-label"></label>
+                <input asp-for="EntryPointName" class="form-control" />
+                <span asp-validation-for="EntryPointName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingTypeCode" class="control-label"></label>
+                <input asp-for="ParkingTypeCode" class="form-control" />
+                <span asp-validation-for="ParkingTypeCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingSpaceID" class="control-label"></label>
+                <input asp-for="ParkingSpaceID" class="form-control" />
+                <span asp-validation-for="ParkingSpaceID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeIn" class="control-label"></label>
+                <input asp-for="TimeIn" class="form-control" />
+                <span asp-validation-for="TimeIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeOut" class="control-label"></label>
+                <input asp-for="TimeOut" class="form-control" />
+                <span asp-validation-for="TimeOut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfHours" class="control-label"></label>
+                <input asp-for="NumberOfHours" class="form-control" />
+                <span asp-validation-for="NumberOfHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HourlyRate" class="control-label"></label>
+                <input asp-for="HourlyRate" class="form-control" />
+                <span asp-validation-for="HourlyRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingFeesDetails" class="control-label"></label>
+                <input asp-for="ParkingFeesDetails" class="form-control" />
+                <span asp-validation-for="ParkingFeesDetails" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalParkingFees" class="control-label"></label>
+                <input asp-for="TotalParkingFees" class="form-control" />
+                <span asp-validation-for="TotalParkingFees" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Unpark" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
