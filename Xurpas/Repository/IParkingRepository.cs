@@ -21,7 +21,6 @@ namespace Xurpas.Repository
 
         List<SelectListItem> ListParkingSpace(string entrypoint, string parkingtype);
 
-        void UpdateParkingAvailability(int parkingspaceid, bool isActive);
 
         ParkingType GetParkingTypeByCode(string code);
 

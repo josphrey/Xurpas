@@ -62,14 +62,6 @@ namespace Xurpas.Repository
             return list;
         }
 
-        public void UpdateParkingAvailability(int parkingSpaceId, bool isActive)
-        {
-            ParkingSpace ps = _context.ParkingSpace.Find(parkingSpaceId);
-            ps.IsAvailable = isActive;
-            _context.ParkingSpace.Update(ps);
-            _context.SaveChanges();
-        }
-
         public List<ParkingType> GetAllParkingType()
         {
             return _context.ParkingType.ToList();

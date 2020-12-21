@@ -15,11 +15,14 @@ namespace Xurpas.Services
 {
     public class ParkingServices : IParkingServices
     {
-        private readonly IParkingRepository _parkingrepository;
+        protected readonly IParkingRepository _parkingrepository;
+        protected readonly ParkingContext _context;
         IParkingFees parkingfee;
-        public ParkingServices(IParkingRepository parkingrepository)
+
+        public ParkingServices(IParkingRepository parkingrepository, ParkingContext context)
         {
             this._parkingrepository = parkingrepository;
+            this._context = context;
         }
 
         public IQueryable<Parking> GetAll()
@@ -115,11 +118,6 @@ namespace Xurpas.Services
             UpdateIsActive(collection.ParkingSpaceID, false);
         }
 
-        public void UpdateIsActive(int id, bool isactive)
-        {
-            _parkingrepository.UpdateParkingAvailability(id, isactive);
-        }
-
         public ParkingViewModel UnParkVehicleDetails(int id)
         {
             //IParkingFees parkingfee;
@@ -209,6 +207,14 @@ namespace Xurpas.Services
         public ParkingSpace GetParkingSpaceById(int id)
         {
             return _parkingrepository.GetParkingSpaceById(id);
+        }
+
+        public void UpdateIsActive(int id, bool isactive)
+        {
+            ParkingSpace ps = _context.ParkingSpace.Find(id);
+            ps.IsAvailable = isactive;
+            _context.ParkingSpace.Update(ps);
+            _context.SaveChanges();
         }
     }
 }

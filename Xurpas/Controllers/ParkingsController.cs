@@ -16,7 +16,7 @@ namespace Xurpas.Controllers
     public class ParkingsController : Controller
     {
         //private readonly ParkingContext _context; ParkingContext context, 
-        private readonly IParkingServices _services;
+        protected readonly IParkingServices _services;
 
         public ParkingsController(IParkingServices services)
         {
