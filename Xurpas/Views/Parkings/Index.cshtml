@@ -7,9 +7,27 @@
 
 <h1>List Parked Vehicles</h1>
 
-<p>
-    <a asp-action="Park">Park</a>
-</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions">
+        <div>
+            <div class="float-left">
+
+                <a asp-action="Park" class="btn btn-info">Park</a>
+            </div>
+            <div class="float-right">
+
+                <label for="SearchString">Search :</label>
+                <input type="text" id="SearchString" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="Search" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-success">Clear</a>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</form>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -26,17 +44,20 @@
                 ParkingType
             </th>
             <th>
-                Parking Space
+                @*Parking Space*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ParkingIDSortParm"]">@Html.DisplayNameFor(model => model.ParkingSpaceID)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeIn)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateTimeInSortParm"]">@Html.DisplayNameFor(model => model.TimeIn)</a>
+                @*@Html.DisplayNameFor(model => model.TimeIn)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeOut)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateTimeOutSortParm"]">@Html.DisplayNameFor(model => model.TimeOut)</a>
+                @*@Html.DisplayNameFor(model => model.TimeOut)*@
             </th>
             @*<th>
-                Allow Return
-            </th>*@
+                    Allow Return
+                </th>*@
             <th></th>
         </tr>
     </thead>
@@ -66,8 +87,8 @@
                     @Html.DisplayFor(modelItem => item.TimeOut)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.isDisable)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.isDisable)
+                    </td>*@
                 <td>
                     @if (item.TimeOut.ToString() == "01/01/0001 12:00:00 am")
                     {
